@@ -7,7 +7,6 @@ namespace paperback::system::window
     {
 		if (!glfwInit())
 		{
-			// PPB_ERR_PRINT_N_LOG("GLFW init has failed - Aborting");
 			std::exit(EXIT_FAILURE);
 		}
 
@@ -37,9 +36,6 @@ namespace paperback::system::window
 		glfwMakeContextCurrent(m_WindowHandle);
 		glfwSwapInterval(0);
 		glfwSetInputMode(m_WindowHandle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-
-		// Fullscreen
-		//glfwSetWindowMonitor(m_WindowHandle, glfwGetPrimaryMonitor(), 0, 0, config::WINDOW_WIDTH, config::WINDOW_HEIGHT, GLFW_DONT_CARE);
     }
 
     void Instance::Update(void) noexcept

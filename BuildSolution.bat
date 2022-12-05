@@ -13,16 +13,6 @@ call :clone_git_branch imgui https://github.com/ocornut/imgui.git docking
 @REM call :clone_git spdlog https://github.com/gabime/spdlog.git
 
 
-@REM Build Entire Project Using CMake
-echo [96m==============================================================================
-echo   Building CMake Project
-echo ==============================================================================[97m
-@REM rmdir /s /q "%RootPath%/build"
-if exist CMakeBuildFolder (del "%RootPath%\build\CMakeCache.txt") else (mkdir build)
-cd build
-cmake .. -A x64 -T v142
-
-
 @REM Building
 echo [96m==============================================================================
 echo   Building glfw
@@ -31,9 +21,18 @@ set path_to_glfw="%RootPath%/Dependencies/glfw"
 set path_to_build="%RootPath%/Dependencies/glfw_build"
 call :rmdir_if_exist %path_to_build%
 echo Building "Dependencies/glfw"...
-cmake -S %path_to_glfw% -B %path_to_build% -A x64
+cmake -S %path_to_glfw% -B %path_to_build% -A x64 -T v142
 cmake -S . -B build
 cmake --build %path_to_build%
+
+
+@REM Build Entire Project Using CMake
+echo [96m==============================================================================
+echo   Building CMake Project
+echo ==============================================================================[97m
+if exist CMakeBuildFolder (del "%RootPath%\build\CMakeCache.txt") else (mkdir build)
+cd build
+cmake .. -A x64 -T v142
 
 
 echo [96m==============================================================================

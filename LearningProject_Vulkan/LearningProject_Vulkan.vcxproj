@@ -73,12 +73,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Window System\WindowSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\BuildSolution.bat" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Window System\WindowSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

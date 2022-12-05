@@ -7,6 +7,12 @@ set( ENABLE_PATH_PRINTOUTS  True )
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+#           Compile Definitions
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# add_compile_definitions()
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 #              Functions
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Debug Printout
@@ -15,6 +21,7 @@ function( PrintPath Description PathString )
 		message( ${Description} ${PathString} )
 	endif()
 endfunction()
+
 
 # Set Warning Exclusions
 # Format Of String In List: "/ignore:4297"
@@ -31,14 +38,17 @@ endfunction()
 # Set Project Name
 project( LearningProject_Vulkan )
 
+
 # Set Compiler Settings
 set( CMAKE_CXX_STANDARD 20 )
 set( CMAKE_CXX_StANDARD_REQUIRED ON )
+
 
 # Define Root Directory
 set( SOURCE_ROOT  "${CMAKE_SOURCE_DIR}" )
 set( PROJECT_FILES_PATH  "${CMAKE_SOURCE_DIR}/LearningProject_Vulkan/" )
 set( MAIN_FILTER "Source Files" )
+
 
 # Define Files/Paths To Exclude
 set(
@@ -47,14 +57,15 @@ set(
 	"${SOURCE_ROOT}/LearningProject_Vulkan/Main.cpp" # Remove "Main.cpp" Cause Its Added Later As Executable File
 )
 
+
 # Recursively Grab All Files (.c/.cpp/.h) Down From Directory
 # Also Grab x64 Stuff
 file(
 	GLOB_RECURSE Source_File_List 
 	LIST_DIRECTORIES false
-    "${PROJECT_FILES_PATH}/*.c"
+  "${PROJECT_FILES_PATH}/*.c"
 	"${PROJECT_FILES_PATH}/*.cpp"
-    "${PROJECT_FILES_PATH}/*.h"
+  "${PROJECT_FILES_PATH}/*.h"
 	"${SOURCE_ROOT}/build/x64/*"
 )
 
@@ -73,6 +84,7 @@ foreach( File  ${Source_File_List} )
 	endforeach()
 endforeach()
 
+
 # Print All Directories
 if ( ENABLE_FILE_PRINTOUTS )
 	message( "Displaying All Directories:" )
@@ -80,6 +92,7 @@ if ( ENABLE_FILE_PRINTOUTS )
 		message( "\tDirectory: "  ${Source_File} )
 	endforeach()
 endif()
+
 
 # Add Each File To Solution Directory - All These Are
 # Dependent On Folder Categorization
@@ -113,18 +126,42 @@ set(
 )
 source_group( ${MAIN_FILTER}  FILES  ${Build_Files} )
 
+
 # Add Main To Solution Directory In VS
 source_group( ${MAIN_FILTER}  FILES  "${CMAKE_SOURCE_DIR}/LearningProject_Vulkan/Main.cpp" )
+
 
 # Set MainEditor.cpp as Main Executable File
 # Change Director As Required
 add_executable( ${PROJECT_NAME}  "${CMAKE_SOURCE_DIR}/LearningProject_Vulkan/Main.cpp"  ${Source_File_List} )
 
+
+# Include Additional Directories - Mostly External (Can only be called after add_executable)
+target_include_directories(
+	${PROJECT_NAME}
+	PUBLIC
+	"${SOURCE_ROOT}/Dependencies/glfw/include/GLFW"
+	"${SOURCE_ROOT}/LearningProject_Vulkan"
+)
+
+
+# Find Additional External Libraries From "Names" - Can Wrap In Function
+find_library(GLFW_LIB
+    NAMES glfw3
+    HINTS "${CMAKE_SOURCE_DIR}/Dependencies/"
+)
+
+# Include Additional Libraries - Actual Lib File - Can Wrap In Function
+target_link_libraries(${PROJECT_NAME} PUBLIC ${GLFW_LIB})
+
+
 # Set Current Project As "Startup Project"
 set_property( DIRECTORY  ${CMAKE_CURRENT_SOURCE_DIR}  PROPERTY  VS_STARTUP_PROJECT  ${PROJECT_NAME} )
 
+
 # Set Project's Platform Toolset Version
 set_target_properties( ${PROJECT_NAME}  PROPERTIES  VS_PLATFORM_TOOLSET  "v142" )
+
 
 # Add PCH To Header Files
 target_precompile_headers( ${PROJECT_NAME}  PUBLIC  ${PCH_Header_File} )

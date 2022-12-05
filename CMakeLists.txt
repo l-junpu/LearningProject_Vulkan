@@ -1,6 +1,11 @@
 # Set CMake Requirements
 cmake_minimum_required( VERSION 3.6 )
 
+
+# Import External Functions
+include(BuildFunctions.cmake
+
+
 # Set Debugging Controls
 set( ENABLE_FILE_PRINTOUTS  False )
 set( ENABLE_PATH_PRINTOUTS  True )

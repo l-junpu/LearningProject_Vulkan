@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LearningProject_Vulkan", "LearningProject_Vulkan\LearningProject_Vulkan.vcxproj", "{DB32AA3C-E1DB-4388-88E7-D8BFFF6DB57D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB32AA3C-E1DB-4388-88E7-D8BFFF6DB57D}.Debug|x64.ActiveCfg = Debug|x64
+		{DB32AA3C-E1DB-4388-88E7-D8BFFF6DB57D}.Debug|x64.Build.0 = Debug|x64
+		{DB32AA3C-E1DB-4388-88E7-D8BFFF6DB57D}.Release|x64.ActiveCfg = Release|x64
+		{DB32AA3C-E1DB-4388-88E7-D8BFFF6DB57D}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3491CF1B-1A33-4231-BB4C-EDD02392628B}
+	EndGlobalSection
+EndGlobal

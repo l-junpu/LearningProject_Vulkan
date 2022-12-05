@@ -3,7 +3,7 @@ cmake_minimum_required( VERSION 3.6 )
 
 # Set Debugging Controls
 set( ENABLE_FILE_PRINTOUTS  False )
-set( ENABLE_PATH_PRINTOUTS  False )
+set( ENABLE_PATH_PRINTOUTS  True )
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
@@ -93,11 +93,11 @@ endif()
 foreach( Source_File  IN ITEMS  ${Source_File_List} )
 	# Outer Path
     get_filename_component( Source_Path  "${Source_File}"  PATH )
-	PrintPath( "Source Path: "  ${Source_Path} )
+	PrintPath( "Source Path: "  "${Source_Path}" )
 
 	# Relative Path
-    file( RELATIVE_PATH  Relative_Source_Path  "${SOURCE_ROOT}"  "${Source_Path}" )
-	PrintPath( "RelativePath: "  ${Relative_Source_Path} )
+    file( RELATIVE_PATH  Relative_Source_Path  "${PROJECT_FILES_PATH}"  "${Source_Path}" )
+	PrintPath( "RelativePath: "  "${Relative_Source_Path}" )
 
     string( REPLACE  "/" "\\"  Group_Path  "${Relative_Source_Path}" )
     source_group( "${MAIN_FILTER}/${Group_Path}"  FILES  "${Source_File}" )

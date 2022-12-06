@@ -8,6 +8,7 @@ int main()
 
 	window_inst.Init();
 	window_inst.Update();
+	window_inst.Free();
 
 	std::cout << "System Terminated" << std::endl;
 }

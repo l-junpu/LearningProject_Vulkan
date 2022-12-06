@@ -1,6 +1,8 @@
 #pragma once
 
+#define GLFW_INCLUDE_VULKAN
 #include <glfw3.h>
+#include <vulkan/vulkan.h>
 
 namespace paperback::system::window
 {
@@ -21,6 +23,9 @@ namespace paperback::system::window
 
     private:
 
+        void InitVulkan(void) noexcept;
+
         GLFWwindow* m_WindowHandle = nullptr;
+        VkInstance  m_VkInstance{};
     };
 }

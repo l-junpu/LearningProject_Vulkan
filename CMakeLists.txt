@@ -52,6 +52,7 @@ set( CMAKE_CXX_StANDARD_REQUIRED ON )
 # Define Root Directory
 set( SOURCE_ROOT  "${CMAKE_SOURCE_DIR}" )
 set( PROJECT_FILES_PATH  "${CMAKE_SOURCE_DIR}/LearningProject_Vulkan/" )
+set( VULKAN_INCLUDE_PATH "C:/VulkanSDK/1.3.231.1/Include/vulkan/" )
 set( MAIN_FILTER "Source Files" )
 
 
@@ -146,6 +147,7 @@ target_include_directories(
 	${PROJECT_NAME}
 	PUBLIC
 	"${SOURCE_ROOT}/Dependencies/glfw/include/GLFW"
+	"C:/VulkanSDK/1.3.231.1/Include/"
 	"${SOURCE_ROOT}/LearningProject_Vulkan"
 )
 
@@ -157,13 +159,26 @@ find_library(
 	NAMES glfw3
 	HINTS "${CMAKE_SOURCE_DIR}/Dependencies/glfw_build/src/Debug/"
 )
-
 if ( GLFW_LIB )
 	target_link_libraries( ${PROJECT_NAME}  PUBLIC  ${GLFW_LIB} )
+	message( "Success: glfw3.lib has been linked" )
 else()
-	message( "Error: glfw3lib could not be found" )
+	message( "Error: glfw3.lib could not be found" )
 endif()
 
+unset( GLFW_LIB  CACHE )
+find_library(
+	VULKAN_LIB
+	NAMES vulkan-1
+	HINTS "C:/VulkanSDK/1.3.231.1/Lib/"
+)
+if ( VULKAN_LIB )
+	target_link_libraries( ${PROJECT_NAME}  PUBLIC  ${VULKAN_LIB} )
+	message( "Success: vulkan-1.lib has been linked" )
+else()
+	message( "Error: vulkan-1.lib could not be found" )
+	message( "Vulkan could be installed in another location..." )
+endif()
 
 # Set Current Project As "Startup Project"
 set_property( DIRECTORY  ${CMAKE_CURRENT_SOURCE_DIR}  PROPERTY  VS_STARTUP_PROJECT  ${PROJECT_NAME} )

@@ -4,13 +4,13 @@
 set RootPath=%cd%
 set CMakeBuildFolder="%RootPath%\build"
 
-
 @REM Cloning from git
 call :clone_git glfw https://github.com/glfw/glfw.git
 call :clone_git_branch imgui https://github.com/ocornut/imgui.git docking
 @REM call :clone_git IconsFontAwesome https://github.com/juliettef/IconFontCppHeaders.git
 @REM call :clone_git ImTerm https://github.com/Organic-Code/ImTerm.git
 @REM call :clone_git spdlog https://github.com/gabime/spdlog.git
+
 
 
 @REM Building

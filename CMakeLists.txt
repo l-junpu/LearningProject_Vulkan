@@ -3,7 +3,7 @@ cmake_minimum_required( VERSION 3.6 )
 
 
 # Import External Functions
-include(BuildFunctions.cmake
+include( BuildFunctions.cmake )
 
 
 # Set Debugging Controls
@@ -68,9 +68,9 @@ set(
 file(
 	GLOB_RECURSE Source_File_List 
 	LIST_DIRECTORIES false
-  "${PROJECT_FILES_PATH}/*.c"
+	"${PROJECT_FILES_PATH}/*.c"
 	"${PROJECT_FILES_PATH}/*.cpp"
-  "${PROJECT_FILES_PATH}/*.h"
+	"${PROJECT_FILES_PATH}/*.h"
 	"${SOURCE_ROOT}/build/x64/*"
 )
 
@@ -114,11 +114,11 @@ foreach( Source_File  IN ITEMS  ${Source_File_List} )
 	PrintPath( "Source Path: "  "${Source_Path}" )
 
 	# Relative Path
-    file( RELATIVE_PATH  Relative_Source_Path  "${PROJECT_FILES_PATH}"  "${Source_Path}" )
+	file( RELATIVE_PATH  Relative_Source_Path  "${PROJECT_FILES_PATH}"  "${Source_Path}" )
 	PrintPath( "RelativePath: "  "${Relative_Source_Path}" )
 
-    string( REPLACE  "/" "\\"  Group_Path  "${Relative_Source_Path}" )
-    source_group( "${MAIN_FILTER}/${Group_Path}"  FILES  "${Source_File}" )
+	string( REPLACE  "/" "\\"  Group_Path  "${Relative_Source_Path}" )
+	source_group( "${MAIN_FILTER}/${Group_Path}"  FILES  "${Source_File}" )
 	PrintPath( "Group Path: "  "${Group_Path}\n" )
 endforeach()
 
@@ -151,13 +151,18 @@ target_include_directories(
 
 
 # Find Additional External Libraries From "Names" - Can Wrap In Function
-find_library(GLFW_LIB
-    NAMES glfw3
-    HINTS "${CMAKE_SOURCE_DIR}/Dependencies/"
+unset( GLFW_LIB  CACHE )
+find_library(
+	GLFW_LIB
+	NAMES glfw3
+	HINTS "${CMAKE_SOURCE_DIR}/Dependencies/glfw_build/src/Debug/"
 )
 
-# Include Additional Libraries - Actual Lib File - Can Wrap In Function
-target_link_libraries(${PROJECT_NAME} PUBLIC ${GLFW_LIB})
+if ( GLFW_LIB )
+	target_link_libraries( ${PROJECT_NAME}  PUBLIC  ${GLFW_LIB} )
+else()
+	message( "Error: glfw3lib could not be found" )
+endif()
 
 
 # Set Current Project As "Startup Project"

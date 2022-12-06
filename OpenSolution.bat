@@ -18,9 +18,13 @@ for /f "usebackq tokens=1* delims=: " %%i in (`"C:\Program Files (x86)\Microsoft
 if "%devenv%" == "" (
   echo [93m Sorry, we could not find vswhere.exe![97m
 ) else (
-  echo [96m Located devenv at: [97m"%devenv%"
-  echo [96m Opening Solution...
-  "%devenv%" "%RootPath%\build\LearningProject_Vulkan.sln"
+  if exist "%RootPath%\build\LearningProject_Vulkan.sln" (
+    echo [96m Located devenv at: [97m"%devenv%"
+    echo [96m Opening Solution...
+    "%devenv%" "%RootPath%\build\LearningProject_Vulkan.sln"
+  ) else (
+	echo [93m Sorry, we could not find LearningProject_Vulkan.sln![97m
+  )
 )
 
 pause

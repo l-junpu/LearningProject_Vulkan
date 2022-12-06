@@ -22,7 +22,7 @@ set path_to_build="%RootPath%/Dependencies/glfw_build"
 call :rmdir_if_exist %path_to_build%
 echo Building "Dependencies/glfw"...
 cmake -S %path_to_glfw% -B %path_to_build% -A x64 -T v142
-cmake -S . -B build
+cmake -S . -B build -A x64 -T v142
 cmake --build %path_to_build%
 
 
@@ -30,7 +30,7 @@ cmake --build %path_to_build%
 echo [96m==============================================================================
 echo   Building CMake Project
 echo ==============================================================================[97m
-if exist CMakeBuildFolder (del "%RootPath%\build\CMakeCache.txt") else (mkdir build)
+if exist %CMakeBuildFolder% (del "%RootPath%\build\CMakeCache.txt") else (mkdir build)
 cd build
 cmake .. -A x64 -T v142
 
